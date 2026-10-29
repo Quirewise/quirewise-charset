@@ -22,8 +22,10 @@ uint32_t qw_charset_abi_version(void);
 
 /* Convert a byte sequence between supported encodings without a terminator.
  * Names are ASCII case-insensitive; hyphens, underscores, spaces, and dots
- * are ignored. The initial release supports UTF-8, UTF-16LE/BE, UTF-32LE/BE,
- * ASCII, ISO-8859-1 (Latin-1), and Windows-1252.
+ * are ignored. Supported encodings include UTF-8, UTF-16LE/BE, UTF-32LE/BE,
+ * ASCII, Latin-1, Windows-1250 through Windows-1258, ISO-8859-7, KOI8-R/U,
+ * DOS code pages 437/850/852/866/874, Mac Roman, GBK, GB2312, GB18030, Big5,
+ * CP950, CP932/Shift-JIS, CP949, EUC-JP, and EUC-KR. EUC-TW is not supported.
  *
  * Set output to NULL and output_capacity to zero to query the required output
  * size. Otherwise output_size receives the required or produced byte count.
