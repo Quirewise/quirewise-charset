@@ -1,11 +1,17 @@
 cmake_minimum_required(VERSION 3.21)
 project(QuirewiseCharset VERSION 0.1.0 LANGUAGES C)
+option(QUIREWISE_BUILD_SHARED "Build Quirewise libraries as shared libraries" OFF)
+if(QUIREWISE_BUILD_SHARED)
+    set(QW_LIBRARY_TYPE SHARED)
+else()
+    set(QW_LIBRARY_TYPE STATIC)
+endif()
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CTest)
 
-add_library(quirewise_charset STATIC src/charset.c)
+add_library(quirewise_charset ${QW_LIBRARY_TYPE} src/charset.c)
 add_library(Quirewise::Charset ALIAS quirewise_charset)
 set_target_properties(quirewise_charset PROPERTIES
     EXPORT_NAME Charset
@@ -44,3 +50,9 @@ install(FILES
     "${CMAKE_CURRENT_BINARY_DIR}/QuirewiseCharsetConfig.cmake"
     "${CMAKE_CURRENT_BINARY_DIR}/QuirewiseCharsetConfigVersion.cmake"
     DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/QuirewiseCharset")
+
+if(QUIREWISE_BUILD_SHARED AND WIN32)
+    set_target_properties(
+        quirewise_charset
+        PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+endif()
