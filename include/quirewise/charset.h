@@ -18,6 +18,7 @@ typedef enum QwCharsetStatus {
     QW_CHARSET_ERR_RESOURCE_LIMIT = 6
 } QwCharsetStatus;
 
+/*! Return the ABI version compiled into the installed charset package. */
 uint32_t qw_charset_abi_version(void);
 
 /* Convert a byte sequence between supported encodings without a terminator.
